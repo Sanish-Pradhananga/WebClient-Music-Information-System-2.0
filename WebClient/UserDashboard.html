@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<link rel="stylesheet" type="text/css" href="./assets/css/index.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+	<h1>Music Player</h1>
+
+	<div id="music-player" class="col-md-8">
+		<div class="container">
+
+    		<div class="container gradient">
+ 
+        		<div class="col-md-4">
+        				<img src="https://lastfm-img2.akamaized.net/i/u/300x300/07e68a1bd343a96dfb452b29a57dc223.png">
+
+        				<audio id="audio">
+
+  							<source src="http://localhost:8081/listen/Snow.mp3" type="audio/mpeg" />
+
+						</audio>
+
+                		<input type="range" id="seek" value="0" max=""/>
+
+                		<a class="btn btn-primary" id="play"><i class="glyphicon glyphicon-play"></i></a>
+             
+        		</div>
+         
+    		</div>
+
+		</div>
+	</div>
+
+	<div id="recomendation" class="col-md-4">
+		<div class="container">
+		<h1>Recommendation</h1>
+		</div>
+	</div>
+	<script type="text/javascript">
+		
+		var play = document.getElementById("play");
+
+		var song = document.getElementById("audio");
+
+		var seek = document.getElementById("seek");
+
+		play.addEventListener("click",function(){
+
+			song.play();
+
+
+			var pause = document.createElement("a");
+			pause.className = "btn btn-primary";
+
+			var icon = document.createElement("i");
+			icon.className="glyphicon glyphicon-pause";
+
+			pause.appendChild(icon);
+
+			play.parentNode.replaceChild(pause,play);
+
+			pause.addEventListener("click",function(){
+
+					song.pause();
+
+					console.log(song.currentTime);
+
+					pause.parentNode.replaceChild(play,pause);
+
+
+			});
+
+		});
+
+		song.addEventListener("timeupdate",function(){
+
+			seek.value = song.currentTime;
+
+			seek.max = song.duration;
+
+		});
+
+
+		seek.addEventListener("change",function(){
+
+			song.currentTime = seek.value;
+
+		});
+
+	</script>
+
+</body>
+</html>
