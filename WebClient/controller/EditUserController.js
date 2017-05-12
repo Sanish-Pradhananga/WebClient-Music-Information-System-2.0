@@ -7,7 +7,7 @@ window.onload= function(){
 
 		form.addEventListener("submit",function(e){
 
-			var userId = document.getElementById("id").value;
+			var userId = location.href.split("=")[1];
 
 			var username = document.getElementById("username").value;
 

@@ -7,7 +7,7 @@ window.onload= function(){
 
 		form.addEventListener("submit",function(e){
 
-			var trackId = document.getElementById("id").value;
+			var trackId = location.href.split("=")[1];
 
 			var trackTitle = document.getElementById("trackTitle").value;
 
@@ -23,6 +23,6 @@ window.onload= function(){
 
 			trackService.put(track);
 
-			//console.log("Submited "+track.id);
+			console.log("Submited "+track.id);
 		});
 }

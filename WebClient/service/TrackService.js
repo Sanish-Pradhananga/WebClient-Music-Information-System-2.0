@@ -34,6 +34,8 @@ TrackService.prototype.insert = function(track){
 		success:function(status){
 
 			console.log(status);
+
+			location.reload();
 		},
 
 		error:function(err){
@@ -68,9 +70,9 @@ TrackService.prototype.put = function(track){
 	$.ajax({
 		url:"http://localhost:8080/MusicInformationSystem/track/"+track.id,
 		method:"PUT",
-		data:track,
+		data:JSON.stringify(track),
 		processData:false,
-		contentType: false,
+		contentType: "application/json",
 		success:function(status){
 				console.log(status);	
 		},		
