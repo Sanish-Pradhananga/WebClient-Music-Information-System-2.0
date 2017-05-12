@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="./assets/css/musicPlayer.css">
+</head>
+<body>
+	<header></header>
+	<div class="row">
+		<div class="container">
+			<div id="music-player" class="music">
+				<img id="current-image" style="float:left">
+				<div class="songDetails">
+					<p id="artist"><strong>Artist: </strong></p>
+					<p id="track-title"><strong>Song: </strong></p>
+					<audio id="audio"></audio>
+						<input type="range" id="seek">
+						<a class="btn btn-primary" id="play"><i class="glyphicon glyphicon-play"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>	
+	<div class="row">
+		<div class="container">
+			<div id="recomendation">
+				<h1>You may also like</h1>
+		</div>
+	</div>
+	<script type="text/javascript" src="./service/TrackService.js"></script>
+	<script type="text/javascript" src="./controller/MusicController.js"></script>
+
+</body>
+</html>

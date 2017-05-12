@@ -1,39 +1,28 @@
+$("header").load("./shared/header.html");
+window.onload= function(){
 
-		var form = document.getElementsByTagName("form")[0];
+		var trackService = new TrackService();
 
-		var trackId = document.getElementById("id");
-
-		var trackTitle = document.getElementById("trackTitle");
-
-		var artist = document.getElementById("artist");
-
-		var trackSource = document.getElementById("trackSource");
+		var form = document.getElementById("edit-track");
 
 		form.addEventListener("submit",function(e){
 
-			var track = { trackTitle: trackTitle.value, trackSource: trackSource.value, artist: artist.value};
+			var trackId = document.getElementById("id").value;
 
-			console.log(track);
+			var trackTitle = document.getElementById("trackTitle").value;
+
+			var artist = document.getElementById("artist").value;
+
+			var trackSource = document.getElementById("trackSource").value;
+
+			var track = new Track(trackId,trackTitle,trackSource,artist);
 
 			e.preventDefault();	
 
-			$.ajax({
-				url:"http://localhost:8080/MusicInformationSystem/track/"+trackId.value,
-				method:"PUT",
-				data:track,
-				dataType:"json",
-				success:function(status){
-						console.log(status);
-				},		
-				error:function(error,status){
+			var formData = new FormData(form);
 
-					console.log(error.responseText);
+			trackService.put(track);
 
-					console.log(status);
-				}	
-
-			});
-
-
-			console.log("Submited "+trackId.value);
+			//console.log("Submited "+track.id);
 		});
+}

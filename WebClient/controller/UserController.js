@@ -1,20 +1,4 @@
-function UserService(){
-
-
-}
-
-
-UserService.prototype.getAll= function(){
-
-	$.getJSON("http://localhost:8080/MusicInformationSystem/user",function(data,status){
-
-		console.log(data);
-		loadData(data);
-
-	});	
-}
-
-
+$("header").load("./shared/header.html");
 var userService = new UserService();
 
 userService.getAll();
@@ -42,17 +26,25 @@ function loadData(userList){
 
 				var action = document.createElement("td");
 
-				var add = document.createElement("a");
+				var edit = document.createElement("a");
 
-				add.innerHTML = "Edit";
+				var glyph = document.createElement("i");
 
-				add.href = "edit.html?id="+userList[i].userId;
+				glyph.className = "glyphicon glyphicon-pencil";
 
-				add.className = "btn btn-success";
+				edit.appendChild(glyph);
+
+				edit.href = "editUser.html?id="+userList[i].userId;
+
+				edit.className = "btn btn-success";
 
 				var del = document.createElement("a");
 
-				del.innerHTML = "Delete";
+				glyph = document.createElement("i");
+
+				glyph.className = "glyphicon glyphicon-remove";
+
+				del.appendChild(glyph);
 
 				del.className = "btn btn-danger";
 
@@ -68,16 +60,50 @@ function loadData(userList){
 
 				})(userList[i].userId);
 
-				action.appendChild(add);
+				action.appendChild(edit);
 
 				action.appendChild(del);
 
 				tr.appendChild(action);
 
 				userTable.appendChild(tr);
-
 			}
+}
 
 
+window.onload = function(){
+
+	var addButton = document.getElementById("add-button");
+
+
+	addButton.addEventListener("click",function(){
+
+		var userInfo = document.getElementById("user-info");
+
+		userInfo.style.display = "none";
+
+		var form = document.getElementById("user-form");
+
+		form.style.display = "block";
+
+		addButton.style.display = "none";
+
+		form.addEventListener("submit",function(e){
+
+			e.preventDefault();
+
+			var formData = new FormData(form);
+
+			var user = new User(formData.get("id"),
+				formData.get("username"),
+				formData.get("password"),formData.get("firstname"),
+				formData.get('lastname'));
+
+			console.log(user);
+
+			userService.insert(user);
+		});
+
+	});
 
 }
