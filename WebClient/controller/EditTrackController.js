@@ -1,13 +1,16 @@
 $("header").load("./shared/header.html");
-window.onload= function(){
 
-		var trackService = new TrackService();
+var trackService = new TrackService();
+
+var trackId = location.href.split("=")[1];
+
+trackService.getById(trackId);
+
+window.onload= function(){
 
 		var form = document.getElementById("edit-track");
 
 		form.addEventListener("submit",function(e){
-
-			var trackId = location.href.split("=")[1];
 
 			var trackTitle = document.getElementById("trackTitle").value;
 
@@ -25,4 +28,17 @@ window.onload= function(){
 
 			console.log("Submited "+track.id);
 		});
+}
+
+
+function loadCurrentSong(track){
+
+	var trackTitle = document.getElementById("trackTitle");
+
+	trackTitle.value = track.trackTitle;
+
+	var artist = document.getElementById("artist");
+
+	artist.value = track.artist;
+
 }

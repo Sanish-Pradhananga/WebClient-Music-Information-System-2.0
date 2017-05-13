@@ -94,10 +94,10 @@ window.onload = function(){
 
 			var formData = new FormData(form);
 
-			var user = new User(formData.get("id"),
-				formData.get("username"),
-				formData.get("password"),formData.get("firstname"),
-				formData.get('lastname'));
+			var user = new User(formData.get("id"),formData.get("username"),formData.get("password"),
+				formData.get("firstname"),
+				formData.get('lastname'),
+				"admin");
 
 			console.log(user);
 

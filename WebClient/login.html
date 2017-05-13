@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="./assets/css/login.css">
+
+	<title>Welcome</title>
+</head>
+<body>
+		<div class="form">
+			<form class="login" id="sign-in">
+				<label>Username</label>
+				<div class="form-group">
+				<input type="text" name="username">
+				</div>
+
+				<label>Password</label>
+				<div class="form-group">
+				
+				<input type="password" name="password">
+				</div>
+
+				<input type="submit" value="Sign In" class="btn btn-primary">
+				<p class="message">Not Registered?  <a href="javascript:void(0)" id="signUp" href="">Sign Up</a></p>
+			</form>
+
+			<form class="create" id="sign-up">
+				<label>Name</label>
+				<div class="form-group">
+				<input type="text" name="firstname" placeholder="First Name">
+				</div>
+
+				<div class="form-group">
+				<input type="text" name="lastname" placeholder="Last Name">
+				</div>
+
+				<label>Username</label>
+				<div class="form-group">
+				<input type="text" name="username" placeholder="Username">
+				</div>
+
+				<label>Password</label>
+				<div class="form-group">	
+				<input type="password" name="password" placeholder="Password">
+				</div>
+
+				<input type="submit" value="Create" class="btn btn-success">
+
+				<p class="message">Have an Account?  <a href="javascript:void(0)">Login</a></p>
+			</form>
+		</div>
+	<script type="text/javascript" src="./entity/User.js"></script>
+	<script type="text/javascript" src="./service/UserService.js"></script>
+	<script type="text/javascript" src="./controller/loginController.js"></script>
+</body>
+</html>

@@ -39,7 +39,7 @@ function loadRecomendations(tracks){
 
 			details.className="caption";
 
-			var trackName = document.createElement("h3");
+			var trackName = document.createElement("h4");
 
 			trackName.innerHTML = tracks[i].trackTitle;
 
@@ -66,6 +66,12 @@ function loadRecomendations(tracks){
 function loadCurrentSong(track){
 
 	var currentImage = document.getElementById("current-image");
+
+	currentImage.addEventListener("error",function(){
+
+		currentImage.src = "./assets/img/placeholder-small.png";
+
+	});
 
 	currentImage.src = track.albumArtURL.replace("300x300","174s");
 

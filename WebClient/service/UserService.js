@@ -65,3 +65,40 @@ UserService.prototype.delete = function(id){
 		}
 	});
 }
+
+UserService.prototype.authenticate = function(user){
+
+
+	$.ajax({
+		url:"http://localhost:8080/MusicInformationSystem/user/authenticate",
+		method:"POST",
+		data:user,
+		success:function(status){
+
+			if(status==="authenticated_user"){
+
+				location.href="MusicHome.html";
+
+			}
+
+			else if(status ==="authenticated_admin"){
+
+				location.href="index.html";
+			}
+
+			else{
+
+				location.href="login.html";
+			}
+
+		},
+		error:function(err){
+			console.log(err);
+			console.log(err.reponseText);
+		}
+	});
+
+
+
+
+}
