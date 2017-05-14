@@ -1,3 +1,5 @@
+$("header").load("./shared/musicHeader.html")
+
 var trackService = new TrackService();
 
 selectedTrackId = window.location.href.split("?")[1];
@@ -91,6 +93,8 @@ function loadCurrentSong(track){
 
 
 window.onload = function(){
+
+		$(".header").html("Music Library");
 		
 		var play = document.getElementById("play");
 

@@ -23,7 +23,7 @@ TrackService.prototype.getById = function(id){
 
 }
 
-TrackService.prototype.insert = function(track){
+TrackService.prototype.insert = function(track,audio){
 
 	$.ajax({
 		url:"http://localhost:8080/MusicInformationSystem/track",
@@ -31,11 +31,12 @@ TrackService.prototype.insert = function(track){
 	    processData: false,
 	    contentType: false,
 	    data: track,
-		success:function(status){
+		success:function(status){	
 
-			console.log(status);
+			audio.trackId = status.trackId;
 
-			location.reload();
+			audioService.insert(audio);
+
 		},
 
 		error:function(err){
@@ -72,7 +73,7 @@ TrackService.prototype.put = function(track){
 		method:"PUT",
 		data:JSON.stringify(track),
 		processData:false,
-		contentType: "application/json",
+		contentType: "multipart/form-data",
 		success:function(status){
 				console.log(status);	
 		},		

@@ -1,7 +1,8 @@
 $("header").load("./shared/header.html");
 
-
 var trackService = new TrackService();
+
+var audioService = new AudioService();
 
 trackService.getAll();
 
@@ -54,7 +55,7 @@ function loadData(trackList){
 
 					del.addEventListener("click",function(){
 
-						trackService.delete(trackId);
+						audioService.delete(trackId);
 
 					});
 
@@ -96,7 +97,13 @@ window.onload=function(){
 
 				var formData = new FormData(form);
 
-				trackService.insert(formData);
+				var audio = new Audio("0",
+					Math.random().toFixed(10),Math.random().toFixed(10),
+					Math.random().toFixed(10),Math.random().toFixed(10),
+					Math.random().toFixed(10),Math.random().toFixed(10),formData.get("id"));//Dummy Audio attributes
+
+				trackService.insert(formData,audio);
+
 
 			});
 

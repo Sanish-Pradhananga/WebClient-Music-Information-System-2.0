@@ -88,7 +88,7 @@ UserService.prototype.authenticate = function(user){
 
 			else{
 
-				location.href="login.html";
+				location.href="login.html?error";
 			}
 
 		},

@@ -24,7 +24,9 @@ window.onload= function(){
 
 			var formData = new FormData(form);
 
-			trackService.put(track);
+			console.log(formData.entries());
+
+			trackService.put(formData);
 
 			console.log("Submited "+track.id);
 		});

@@ -1,38 +1,52 @@
+window.onload = function(){
 
-$('.message').click(function(){
+	$('.message').click(function(){
 
-	$('form').animate({height:"toggle",opacity:"toggle"},"slow");
+		$('form').animate({height:"toggle"},"slow");
 
-});
+	});
 
-var userService = new UserService();
+	var userService = new UserService();
 
-var loginForm = document.getElementById("sign-in");
+	var loginForm = document.getElementById("sign-in");
 
-loginForm.addEventListener("submit",function(e){
+	loginForm.addEventListener("submit",function(e){
 
-	e.preventDefault();
+		e.preventDefault();
 
-	var formData = new FormData(loginForm);
+		var formData = new FormData(loginForm);
 
-	var user = new User(0,formData.get("username"),formData.get("password"));
-
-
-	userService.authenticate(user);
-
-});
+		var user = new User(0,formData.get("username"),formData.get("password"));
 
 
-var create = document.getElementById("sign-up");
+		userService.authenticate(user);
 
-create.addEventListener("submit",function(e){
+	});
 
-	e.preventDefault();
 
-	var formData = new FormData(create);
+	var create = document.getElementById("sign-up");
 
-	var user = new User(0,formData.get("username"),formData.get("password"),formData.get("firstname"),formData.get("lastname"),"user");
+	create.addEventListener("submit",function(e){
 
-	userService.insert(user);
+		e.preventDefault();
 
-});
+		var formData = new FormData(create);
+
+		var user = new User(0,formData.get("username"),formData.get("password"),formData.get("firstname"),formData.get("lastname"),"user");
+
+		userService.insert(user);
+
+	});
+
+	var error = location.href.split("?")[1];
+
+	if(error === "error"){
+
+		var errorMsg = document.getElementById("error-msg");
+
+		errorMsg.innerHTML = "Your credentials are Invalid";
+	
+	}	
+
+
+}
