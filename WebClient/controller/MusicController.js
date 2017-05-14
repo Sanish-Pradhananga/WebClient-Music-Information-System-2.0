@@ -1,12 +1,5 @@
-$("header").load("./shared/musicHeader.html")
+$("header").load("./shared/header.html")
 
-var trackService = new TrackService();
-
-selectedTrackId = window.location.href.split("?")[1];
-
-trackService.getRecomendation(selectedTrackId);
-
-trackService.getById(selectedTrackId);
 
 function loadRecomendations(tracks){
 
@@ -94,6 +87,17 @@ function loadCurrentSong(track){
 
 window.onload = function(){
 
+		$(".navbar-brand").attr("href","MusicHome.html");
+
+		var trackService = new TrackService();
+
+		selectedTrackId = window.location.href.split("?")[1];
+
+		trackService.getRecomendation(selectedTrackId);
+
+		trackService.getById(selectedTrackId);
+
+
 		$(".header").html("Music Library");
 		
 		var play = document.getElementById("play");
@@ -141,7 +145,6 @@ window.onload = function(){
 			song.currentTime = seek.value;
 
 		});
-
 
 
 }

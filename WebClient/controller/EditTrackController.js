@@ -1,12 +1,12 @@
 $("header").load("./shared/header.html");
 
-var trackService = new TrackService();
-
-var trackId = location.href.split("=")[1];
-
-trackService.getById(trackId);
-
 window.onload= function(){
+
+		var trackService = new TrackService();
+
+		var trackId = location.href.split("=")[1];
+
+		trackService.getById(trackId);
 
 		var form = document.getElementById("edit-track");
 

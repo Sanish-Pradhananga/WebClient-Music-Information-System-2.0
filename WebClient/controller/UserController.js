@@ -1,7 +1,4 @@
 $("header").load("./shared/header.html");
-var userService = new UserService();
-
-userService.getAll();
 
 function loadData(userList){
 
@@ -13,14 +10,11 @@ function loadData(userList){
 
 				for(var prop in userList[i]){
 
-					if(prop === "userId" ||  prop === "username" || prop === "firstName" || prop === "lastName"){
-
 						var td = document.createElement("td");
 
 						td.innerHTML = userList[i][prop];
 
 						tr.appendChild(td);
-					}
 
 				}
 
@@ -29,14 +23,6 @@ function loadData(userList){
 				var edit = document.createElement("a");
 
 				var glyph = document.createElement("i");
-
-				glyph.className = "glyphicon glyphicon-pencil";
-
-				edit.appendChild(glyph);
-
-				edit.href = "editUser.html?id="+userList[i].userId;
-
-				edit.className = "btn btn-success";
 
 				var del = document.createElement("a");
 
@@ -48,19 +34,20 @@ function loadData(userList){
 
 				del.className = "btn btn-danger";
 
-				(function(userId){
+				(function(user){
 
 					del.addEventListener("click",function(){
 
+						var userService = new UserService();
 
-						userService.delete(userId);
-
+						var ch = confirm("Do you want to delete user "+user.firstName +"?");
+						
+						if(ch)
+						userService.delete(user.userId);
 
 					});
 
-				})(userList[i].userId);
-
-				action.appendChild(edit);
+				})(userList[i]);
 
 				action.appendChild(del);
 
@@ -73,6 +60,10 @@ function loadData(userList){
 
 window.onload = function(){
 
+	var userService = new UserService();
+
+	userService.getAll();
+
 	var addButton = document.getElementById("add-button");
 
 
@@ -84,9 +75,9 @@ window.onload = function(){
 
 		var form = document.getElementById("user-form");
 
-		form.style.display = "block";
-
 		addButton.style.display = "none";
+
+		$("#user-form").animate({height:"toggle"},"slow");
 
 		form.addEventListener("submit",function(e){
 
@@ -94,16 +85,24 @@ window.onload = function(){
 
 			var formData = new FormData(form);
 
-			var user = new User(formData.get("id"),formData.get("username"),formData.get("password"),
+			var user = new User(0,formData.get("username"),formData.get("password"),
 				formData.get("firstname"),
 				formData.get('lastname'),
-				"admin");
-
-			console.log(user);
+				"admin",formData.get("email"));
 
 			userService.insert(user);
 		});
 
 	});
+
+	var error = location.href.split("?")[1];
+
+	if(error === "userExists"){
+
+		var errorMsg = document.getElementById("error-msg");
+
+		errorMsg.innerHTML = "User already exits. Duplicate user cannot be created";
+	
+	}
 
 }

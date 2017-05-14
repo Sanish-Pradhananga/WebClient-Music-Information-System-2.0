@@ -35,6 +35,8 @@ TrackService.prototype.insert = function(track,audio){
 
 			audio.trackId = status.trackId;
 
+			var audioService = new AudioService();
+
 			audioService.insert(audio);
 
 		},

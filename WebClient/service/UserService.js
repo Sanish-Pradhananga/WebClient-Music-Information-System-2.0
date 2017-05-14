@@ -20,7 +20,17 @@ UserService.prototype.insert = function(user){
 		data: user,
 		success:function(response){
 
-			location.reload();
+			var page = location.pathname.split("/").pop();
+
+			if(response.userId === 0){
+
+				location.href=page+"?userExists";
+
+			}
+			else{
+
+				location.href=page.split("?")[0];
+			}
 		},
 		error:function(err){
 
@@ -88,7 +98,7 @@ UserService.prototype.authenticate = function(user){
 
 			else{
 
-				location.href="login.html?error";
+				location.href="login.html?loginError";
 			}
 
 		},
@@ -98,6 +108,35 @@ UserService.prototype.authenticate = function(user){
 		}
 	});
 
+}
+
+UserService.prototype.update = function(data){
+
+
+	$.ajax({
+		url:"http://localhost:8080/MusicInformationSystem/user/update",
+		method:"POST",
+		data:data,
+		success:function(status){
+
+			if(status.userId === 0)
+				$("#error-msg").html("Username is Invalid or User doesn't exist");
+
+
+			else
+				$("#error-msg").html("Username and Password changed Sucessfully");
+
+		},
+		error:function(err){
+
+
+			console.log(err.responseText)
+
+
+		}
+
+
+	});
 
 
 

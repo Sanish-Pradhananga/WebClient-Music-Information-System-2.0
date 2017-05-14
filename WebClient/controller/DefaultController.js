@@ -1,12 +1,8 @@
 $("header").load("./shared/header.html");
 
-var trackService = new TrackService();
-
-var audioService = new AudioService();
-
-trackService.getAll();
-
 function loadData(trackList){
+
+			var audioService = new AudioService();
 
 			var trackTable = document.getElementById("track-table-body");
 
@@ -51,15 +47,18 @@ function loadData(trackList){
 
 				del.className = "btn btn-danger";
 
-				(function(trackId){
+				(function(track){
 
 					del.addEventListener("click",function(){
 
-						audioService.delete(trackId);
+						var ch = confirm("Do you want to delete track "+track.trackTitle+" ?");
+
+						if(ch)
+							audioService.delete(track);
 
 					});
 
-				})(trackList[i].trackId);
+				})(trackList[i]);
 
 				action.appendChild(edit);
 
@@ -77,6 +76,12 @@ function loadData(trackList){
 
 window.onload=function(){
 
+		var trackService = new TrackService();
+
+		var audioService = new AudioService();
+
+		trackService.getAll();
+
 		var addButton = document.getElementById("add-button");
 
 		addButton.addEventListener("click",function(){
@@ -89,7 +94,7 @@ window.onload=function(){
 
 			var form = document.getElementById("track-form");
 
-			form.style.display = "block";
+			$("#track-form").animate({height:"toggle"},"slow");
 
 			form.addEventListener("submit",function(e){
 

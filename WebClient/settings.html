@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+		<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="./assets/css/home.css">
+
+	<link rel="stylesheet" type="text/css" href="./assets/css/settings.css">
+</head>
+<body>
+	<header></header>
+	<div class="container">
+		<form class="settings" id="settings-form">
+			<p class="error" id="error-msg"></p>
+			<div class="form-group">
+				<label>Old User Name</label>
+				<input type="text" id="oldUsername" name="oldUsername" class="form-control">
+			</div>
+
+			<div class="form-group">
+				<label>Old Password</label>
+				<input type="password" id="oldPassword" name="oldPassword" class="form-control">
+			</div>
+
+			<div class="form-group">
+				<label>New User Name</label>
+				<input type="text" id="newUsername" name="newUsername" class="form-control">
+			</div>
+
+			<div class="form-group">
+				<label>New Password</label>
+				<input type="password" id="newPassword" name="newPassword" class="form-control">
+			</div>
+
+			<div class="form-group">
+				<label>New Confirmed Password</label>
+				<input type="password" id="confirmedPassword" name="confirmedPassword" class="form-control">
+			</div>
+
+
+			<button id="submit" type="submit" class="btn btn-success">Save Changes</button>
+			<a id="back" href="javascript:history.back()" class="btn btn-danger">Back</a>
+
+		</form>
+	</div>
+<script type="text/javascript" src="./service/UserService.js"></script>
+<script type="text/javascript" src="./controller/changeSettings.js"></script>
+</body>
+</html>

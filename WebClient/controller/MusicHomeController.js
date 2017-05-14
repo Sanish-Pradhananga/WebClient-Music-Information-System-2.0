@@ -1,8 +1,4 @@
-$("header").load("./shared/musicHeader.html");
-
-var trackService = new TrackService();
-
-trackService.getAll();
+$("header").load("./shared/header.html");
 
 function loadData(tracks){
 
@@ -55,5 +51,15 @@ for (var i = 0; i < tracks.length; i++) {
 
 	alltracks.appendChild(trackContainer);
 }
+
+}
+
+window.onload = function(){
+
+	$(".navbar-brand").attr("href","MusicHome.html");
+
+	var trackService = new TrackService();
+
+	trackService.getAll();	
 
 }

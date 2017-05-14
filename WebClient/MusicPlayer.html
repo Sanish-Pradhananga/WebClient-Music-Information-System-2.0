@@ -16,28 +16,22 @@
 </head>
 <body>
 	<header></header>
-	<div class="row">
-		<div class="container">
-			<div id="music-player" class="music">
-				<img id="current-image" style="float:left">
-				<div class="songDetails">
-					<p id="artist"><strong>Artist: </strong></p>
-					<p id="track-title"><strong>Song: </strong></p>
-					<audio id="audio"></audio>
-						<input type="range" id="seek">
-						<a class="btn btn-primary" id="play"><i class="glyphicon glyphicon-play"></i></a>
-				</div>
-			</div>
-		</div>
-	</div>	
-	<div class="row">
-		<div class="container">
+	<div id="content" class="container">
+				<div id="music-player" class="music">
+					<img id="current-image" style="float:left">
+					<div class="songDetails">
+						<p id="artist"><strong>Artist: </strong></p>
+						<p id="track-title"><strong>Song: </strong></p>
+						<audio id="audio"></audio>
+							<input type="range" id="seek">
+							<a class="btn btn-primary" id="play"><i class="glyphicon glyphicon-play"></i></a>
+					</div>
+				</div>	
 			<div id="recomendation">
 				<h1>You may also like</h1>
 		</div>
-	</div>
+	</div>	
 	<script type="text/javascript" src="./service/TrackService.js"></script>
 	<script type="text/javascript" src="./controller/MusicController.js"></script>
-
 </body>
 </html>

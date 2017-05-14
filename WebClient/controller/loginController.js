@@ -32,7 +32,7 @@ window.onload = function(){
 
 		var formData = new FormData(create);
 
-		var user = new User(0,formData.get("username"),formData.get("password"),formData.get("firstname"),formData.get("lastname"),"user");
+		var user = new User(0,formData.get("username"),formData.get("password"),formData.get("firstname"),formData.get("lastname"),"user",formData.get("email"));
 
 		userService.insert(user);
 
@@ -40,13 +40,19 @@ window.onload = function(){
 
 	var error = location.href.split("?")[1];
 
-	if(error === "error"){
+	if(error === "loginError"){
 
 		var errorMsg = document.getElementById("error-msg");
 
 		errorMsg.innerHTML = "Your credentials are Invalid";
 	
-	}	
+	}
+	if(error === "userExists"){
 
+		var errorMsg = document.getElementById("error-msg");
+
+		errorMsg.innerHTML = "Username exits";
+	
+	}
 
 }

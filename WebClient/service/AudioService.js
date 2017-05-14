@@ -25,16 +25,17 @@ AudioService.prototype.insert = function(audio){
 
 }
 
-AudioService.prototype.delete = function(audioId){
-
+AudioService.prototype.delete = function(track){
 
 	$.ajax({
-		url:this.serverURL+"/"+audioId,
+		url:this.serverURL+"/"+track.audio.audioId,
 		method:"DELETE",
 
 		success:function(){
 
-			trackService.delete(audioId);
+			var trackService = new TrackService();
+
+			trackService.delete(track.trackId);
 
 		},
 		error:function(){
