@@ -1,46 +1,45 @@
 $("header").load("./shared/header.html");
 
-window.onload= function(){
+var editTrackController = function(){
 
-		var trackService = new TrackService();
+	var trackService = new TrackService();
+
+	function loadCurrentSong(track){
+
+		var trackTitle = document.getElementById("trackTitle");
+
+		trackTitle.value = track.trackTitle;
+
+		var artist = document.getElementById("artist");
+
+		artist.value = track.artist;
+
+	}
+
+	return{
+
+		setCurrentSong:loadCurrentSong,
+
+		trackService:trackService
+	}
+}();
+
+window.onload= function(){
 
 		var trackId = location.href.split("=")[1];
 
-		trackService.getById(trackId);
+		editTrackController.trackService.getById(trackId,editTrackController);
 
 		var form = document.getElementById("edit-track");
 
 		form.addEventListener("submit",function(e){
 
-			var trackTitle = document.getElementById("trackTitle").value;
-
-			var artist = document.getElementById("artist").value;
-
-			var trackSource = document.getElementById("trackSource").value;
-
-			var track = new Track(trackId,trackTitle,trackSource,artist);
-
 			e.preventDefault();	
 
 			var formData = new FormData(form);
 
-			console.log(formData.entries());
+			formData.append("id",trackId);
 
-			trackService.put(formData);
-
-			console.log("Submited "+track.id);
+			editTrackController.trackService.update(formData);
 		});
-}
-
-
-function loadCurrentSong(track){
-
-	var trackTitle = document.getElementById("trackTitle");
-
-	trackTitle.value = track.trackTitle;
-
-	var artist = document.getElementById("artist");
-
-	artist.value = track.artist;
-
 }

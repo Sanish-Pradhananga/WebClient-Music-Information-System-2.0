@@ -1,51 +1,34 @@
 $("header").load("./shared/header.html");
 
-function loadData(trackList){
+var defaultController = function(){
 
-			var audioService = new AudioService();
+	var trackService = new TrackService();
+
+	var audioService = new AudioService();
+
+	function loadData(trackList){
 
 			var trackTable = document.getElementById("track-table-body");
 
 			for (var i = 0; i < trackList.length; i++) {
 
-				var tr = document.createElement("tr");
-
-				for(var prop in trackList[i]){
-
-					if(prop === "trackId" ||  prop === "trackTitle" || prop === "artist"){
-
-						var td = document.createElement("td");
-
-						td.innerHTML = trackList[i][prop];
-
-						tr.appendChild(td);
-					}
-
-				}
+				var row = controllerHelper.setData(trackList[i],["albumArtURL","audio"]);
 
 				var action = document.createElement("td");
 
-				var edit = document.createElement("a");
+				var edit = controllerHelper.setAction();
 
-				var glyph = document.createElement("i");
+				edit.className = "glyphicon glyphicon-pencil";
 
-				glyph.className ="glyphicon glyphicon-pencil";
+				edit.parentElement.className = "btn btn-success";
 
-				edit.href = "edit.html?id="+trackList[i].trackId;
+				edit.parentElement.href = "edit.html?id="+trackList[i].trackId;
 
-				edit.appendChild(glyph);
+				var del = controllerHelper.setAction();
 
-				edit.className = "btn btn-success";
+				del.className = "glyphicon glyphicon-remove";
 
-				var del = document.createElement("a");
-
-				glyph = document.createElement("i");
-
-				glyph.className = "glyphicon glyphicon-remove";
-
-				del.appendChild(glyph);
-
-				del.className = "btn btn-danger";
+				del.parentElement.className = "btn btn-danger";
 
 				(function(track){
 
@@ -60,27 +43,31 @@ function loadData(trackList){
 
 				})(trackList[i]);
 
-				action.appendChild(edit);
+				action.appendChild(edit.parentElement);
 
-				action.appendChild(del);
+				action.appendChild(del.parentElement);
 
-				tr.appendChild(action);
+				row.appendChild(action);
 
-				trackTable.appendChild(tr);
+				trackTable.appendChild(row);
 
 			}
+	}
 
+	return {
 
+		trackService:trackService,
 
-}
+		audioService:audioService,
+		
+		set: loadData
+	}
+
+}();
 
 window.onload=function(){
 
-		var trackService = new TrackService();
-
-		var audioService = new AudioService();
-
-		trackService.getAll();
+		defaultController.trackService.getAll(defaultController);
 
 		var addButton = document.getElementById("add-button");
 
@@ -88,9 +75,9 @@ window.onload=function(){
 
 			var trackInfo = document.getElementById("track-info");
 
-			trackInfo.style.display = "none";
+			trackInfo.className = "disappear";
 
-			addButton.style.display = "none";
+			addButton.className += " disappear";
 
 			var form = document.getElementById("track-form");
 
@@ -107,7 +94,7 @@ window.onload=function(){
 					Math.random().toFixed(10),Math.random().toFixed(10),
 					Math.random().toFixed(10),Math.random().toFixed(10),formData.get("id"));//Dummy Audio attributes
 
-				trackService.insert(formData,audio);
+				defaultController.trackService.insert(formData,audio);
 
 
 			});

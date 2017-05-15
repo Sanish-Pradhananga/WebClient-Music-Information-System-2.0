@@ -1,65 +1,41 @@
 $("header").load("./shared/header.html");
 
-function loadData(tracks){
 
-for (var i = 0; i < tracks.length; i++) {
-	
-	var alltracks  = document.getElementsByClassName("container")[0];
+var musicHomeController = function(){
 
-	var trackContainer = document.createElement("div");
+	var trackService = new TrackService();
 
-	trackContainer.className = "col-sm-6 col-md-3";
+	function loadData(tracks){
 
-	var trackLink = document.createElement("a");
+		for (var i = 0; i < tracks.length; i++) {
+			
+			var alltracks  = document.getElementsByClassName("container")[0];
 
-	trackLink.className = "thumbnail";
+			var trackContainer = document.createElement("div");
 
-	trackLink.href="MusicPlayer.html?"+tracks[i].trackId;
+			trackContainer.className = "col-sm-6 col-md-3";
 
-	var trackAlbumArt = document.createElement("img");
+			var track = controllerHelper.getTrack(tracks[i]);
 
-	trackAlbumArt.src = tracks[i].albumArtURL;
+			trackContainer.appendChild(track);
 
-	trackAlbumArt.addEventListener("error",function(e){
+			alltracks.appendChild(trackContainer);
+		}
 
-		e.target.src = "./assets/img/placeholder.png";
+	}
 
+	return{
 
-	});
+		trackService:trackService,
 
-	var trackDetails = document.createElement("div");
-
-	trackDetails.className = "caption";
-
-	var title = document.createElement("h4");
-
-	title.innerHTML = tracks[i].trackTitle;
-
-	var trackArtist = document.createElement("artist");
-
-	trackArtist.innerHTML = tracks[i].artist;
-
-	trackDetails.appendChild(title);
-
-	trackDetails.appendChild(trackArtist);
-
-	trackLink.appendChild(trackAlbumArt);
-
-	trackLink.appendChild(trackDetails);
-
-	trackContainer.appendChild(trackLink);
-
-	alltracks.appendChild(trackContainer);
-}
-
-}
+		set:loadData
+	}
+}();
 
 window.onload = function(){
 
 	$(".navbar-brand").attr("href","MusicHome.html");
 
-	var trackService = new TrackService();
-
-	trackService.getAll();	
+	musicHomeController.trackService.getAll(musicHomeController);	
 
 }

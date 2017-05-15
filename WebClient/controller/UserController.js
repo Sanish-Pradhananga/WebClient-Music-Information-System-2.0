@@ -1,81 +1,84 @@
 $("header").load("./shared/header.html");
 
-function loadData(userList){
 
-			var userTable = document.getElementById("user-table-body");
+var userController = function(){
 
-			for (var i = 0; i < userList.length; i++) {
+		var userService = new UserService();
 
-				var tr = document.createElement("tr");
+		var error = location.href.split("?")[1];
 
-				for(var prop in userList[i]){
+		if(error === "userExists"){
 
-						var td = document.createElement("td");
+			var errorMsg = document.getElementById("error-msg");
 
-						td.innerHTML = userList[i][prop];
+			errorMsg.innerHTML = "User already exits. Duplicate user cannot be created";
+		
+		}
 
-						tr.appendChild(td);
 
-				}
+		function loadData(userList){
 
-				var action = document.createElement("td");
+					var userTable = document.getElementById("user-table-body");
 
-				var edit = document.createElement("a");
+					for (var i = 0; i < userList.length; i++) {
 
-				var glyph = document.createElement("i");
+						var row = controllerHelper.setData(userList[i]);
 
-				var del = document.createElement("a");
+						var action = document.createElement("td");
 
-				glyph = document.createElement("i");
-
-				glyph.className = "glyphicon glyphicon-remove";
-
-				del.appendChild(glyph);
-
-				del.className = "btn btn-danger";
-
-				(function(user){
-
-					del.addEventListener("click",function(){
-
-						var userService = new UserService();
-
-						var ch = confirm("Do you want to delete user "+user.firstName +"?");
+						var del = controllerHelper.setAction();
 						
-						if(ch)
-						userService.delete(user.userId);
+						del.className = "glyphicon glyphicon-remove";
 
-					});
+						del.parentElement.className = "btn btn-danger";
 
-				})(userList[i]);
+						(function(user){
 
-				action.appendChild(del);
+							del.addEventListener("click",function(){
 
-				tr.appendChild(action);
+								var ch = confirm("Do you want to delete user "+user.firstName +"?");
+								
+								if(ch)
+								userService.delete(user.userId);
 
-				userTable.appendChild(tr);
-			}
-}
+							});
+
+						})(userList[i]);
+
+						action.appendChild(del.parentElement);
+
+						row.appendChild(action);
+
+						userTable.appendChild(row);
+					}
+		}
+
+		return{
+
+			userService : userService,
+
+			set:loadData
+		}
+
+}();
+
 
 
 window.onload = function(){
 
-	var userService = new UserService();
-
-	userService.getAll();
+	userController.userService.getAll(userController);
 
 	var addButton = document.getElementById("add-button");
-
 
 	addButton.addEventListener("click",function(){
 
 		var userInfo = document.getElementById("user-info");
 
-		userInfo.style.display = "none";
+		userInfo.className = "disappear";
+
+		addButton.className += " disappear";
 
 		var form = document.getElementById("user-form");
-
-		addButton.style.display = "none";
 
 		$("#user-form").animate({height:"toggle"},"slow");
 
@@ -90,19 +93,8 @@ window.onload = function(){
 				formData.get('lastname'),
 				"admin",formData.get("email"));
 
-			userService.insert(user);
+			userController.userService.insert(user);
 		});
 
 	});
-
-	var error = location.href.split("?")[1];
-
-	if(error === "userExists"){
-
-		var errorMsg = document.getElementById("error-msg");
-
-		errorMsg.innerHTML = "User already exits. Duplicate user cannot be created";
-	
-	}
-
 }

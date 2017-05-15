@@ -22,7 +22,7 @@
 					<div class="songDetails">
 						<p id="artist"><strong>Artist: </strong></p>
 						<p id="track-title"><strong>Song: </strong></p>
-						<audio id="audio"></audio>
+						<audio id="audio" preload="none"></audio>
 							<input type="range" id="seek">
 							<a class="btn btn-primary" id="play"><i class="glyphicon glyphicon-play"></i></a>
 					</div>
@@ -32,6 +32,7 @@
 		</div>
 	</div>	
 	<script type="text/javascript" src="./service/TrackService.js"></script>
+	<script type="text/javascript" src="./helper/musicControllerHelper.js"></script>
 	<script type="text/javascript" src="./controller/MusicController.js"></script>
 </body>
 </html>

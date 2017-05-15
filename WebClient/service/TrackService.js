@@ -3,21 +3,21 @@ function TrackService(){
 
 }
 
-TrackService.prototype.getAll = function(){
+TrackService.prototype.getAll = function(controller){
 
 		$.getJSON("http://localhost:8080/MusicInformationSystem/track",function(data,status){
 
-			loadData(data);
+			controller.set(data);
 
 		});
 
 }
 
-TrackService.prototype.getById = function(id){
+TrackService.prototype.getById = function(id,controller){
 
 		$.getJSON("http://localhost:8080/MusicInformationSystem/track/"+id,function(data,status){
 
-			loadCurrentSong(data);
+			controller.setCurrentSong(data);
 
 		});
 
@@ -88,10 +88,33 @@ TrackService.prototype.put = function(track){
 	});
 }
 
-TrackService.prototype.getRecomendation = function(id){
+TrackService.prototype.getRecomendation = function(id,controller){
 
 	$.getJSON("http://localhost:8080/MusicInformationSystem/track/recom/"+id,function(data,status){
 
-		loadRecomendations(data);
+		controller.setRecomendations(data);
+	});
+}
+
+TrackService.prototype.update = function(formData){
+
+
+	$.ajax({
+		url:"http://localhost:8080/MusicInformationSystem/track/update",
+		method:"POST",
+		data:formData,
+		contentType:false,
+		processData:false,
+		success:function(status){
+
+			location.href="index.html";
+
+		},
+		error:function(err){
+
+			console.log(err.responseText);
+
+
+		}
 	});
 }

@@ -3,11 +3,11 @@ function UserService(){
 
 }
 
-UserService.prototype.getAll= function(){
+UserService.prototype.getAll= function(controller){
 
 	$.getJSON("http://localhost:8080/MusicInformationSystem/user",function(data,status){
 		
-		loadData(data);
+		controller.set(data);
 
 	});
 }

@@ -1,104 +1,78 @@
 $("header").load("./shared/header.html")
 
 
-function loadRecomendations(tracks){
+var musicController = function(){
 
-		for (var i = 0; i < tracks.length; i++) {
+	var trackService = new TrackService();
 
-			var recomendation = document.getElementById("recomendation");
+	function loadRecomendations(tracks){
 
-			var trackContainer = document.createElement("div");
+			for (var i = 0; i < tracks.length; i++) {
 
-			trackContainer.className = "col-xs-6 col-md-3";
+				var recomendation = document.getElementById("recomendation");
 
-			var trackLink = document.createElement("a");
+				var trackContainer = document.createElement("div");
 
-			trackLink.className = "thumbnail";
+				trackContainer.className = "col-sm-6 col-md-3";
 
-			trackLink.href="MusicPlayer.html?"+tracks[i].trackId;
+				var track = controllerHelper.getTrack(tracks[i]);
 
-			var trackAlbumArt = document.createElement("img");
+				trackContainer.appendChild(track);
 
-			trackAlbumArt.src = tracks[i].albumArtURL;
+				recomendation.appendChild(trackContainer);
 
+			}
 
-			trackAlbumArt.addEventListener("error",function(e){
+	}
 
+	function loadCurrentSong(track){
 
-				e.target.src="./assets/img/placeholder.png";
+		var currentImage = document.getElementById("current-image");
 
+		currentImage.addEventListener("error",function(){
 
-			});
+			currentImage.src = "./assets/img/placeholder-small.png";
 
-			var details = document.createElement("div");
+		});
 
-			details.className="caption";
+		currentImage.src = track.albumArtURL.replace("300x300","174s");
 
-			var trackName = document.createElement("h4");
+		var currentSong = document.getElementById("audio");
 
-			trackName.innerHTML = tracks[i].trackTitle;
+		currentSong.src = track.streamURL+track.trackSource;
 
-			var artistName = document.createElement("p");
+		var artist = document.getElementById("artist");
 
-			artistName.innerHTML = tracks[i].artist;
+		artist.innerHTML += track.artist;
 
-			details.appendChild(trackName);
+		var trackTitle = document.getElementById("track-title");
 
-			details.appendChild(artistName);
+		trackTitle.innerHTML += track.trackTitle;
 
-			trackLink.appendChild(trackAlbumArt);
+	}
 
-			trackLink.appendChild(details);
+	return {
 
-			trackContainer.appendChild(trackLink);
+		trackService:trackService,
 
-			recomendation.appendChild(trackContainer);
+		setRecomendations:loadRecomendations,
 
-		}
-
-}
-
-function loadCurrentSong(track){
-
-	var currentImage = document.getElementById("current-image");
-
-	currentImage.addEventListener("error",function(){
-
-		currentImage.src = "./assets/img/placeholder-small.png";
-
-	});
-
-	currentImage.src = track.albumArtURL.replace("300x300","174s");
-
-	var currentSong = document.getElementById("audio");
-
-	currentSong.src = track.streamURL+track.trackSource;
-
-	var artist = document.getElementById("artist");
-
-	artist.innerHTML += track.artist;
-
-	var trackTitle = document.getElementById("track-title");
-
-	trackTitle.innerHTML += track.trackTitle;
-
-}
+		setCurrentSong:loadCurrentSong
+	}
+}();
 
 
 window.onload = function(){
 
 		$(".navbar-brand").attr("href","MusicHome.html");
 
-		var trackService = new TrackService();
+		$(".header").html("Music Library");
 
 		selectedTrackId = window.location.href.split("?")[1];
 
-		trackService.getRecomendation(selectedTrackId);
+		musicController.trackService.getRecomendation(selectedTrackId,musicController);
 
-		trackService.getById(selectedTrackId);
-
-
-		$(".header").html("Music Library");
+		musicController.trackService.getById(selectedTrackId,musicController);
 		
 		var play = document.getElementById("play");
 
@@ -109,8 +83,6 @@ window.onload = function(){
 		play.addEventListener("click",function(){
 
 			song.play();
-
-			seek.max = song.duration;
 
 			var pause = document.createElement("a");
 			pause.className = "btn btn-primary";
@@ -136,6 +108,8 @@ window.onload = function(){
 		song.addEventListener("timeupdate",function(e){
 
 			seek.value = song.currentTime;
+
+			seek.max = song.duration === Infinity ? 400 : song.duration;
 
 		});
 
