@@ -51,7 +51,7 @@ window.onload = function(){
 
 		var errorMsg = document.getElementById("error-msg");
 
-		errorMsg.innerHTML = "Username exits";
+		errorMsg.innerHTML = "Username already exits. Duplicate user cannot be created";
 	
 	}
 

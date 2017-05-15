@@ -39,7 +39,7 @@ var userController = function(){
 								var ch = confirm("Do you want to delete user "+user.firstName +"?");
 								
 								if(ch)
-								userService.delete(user.userId);
+									userService.delete(user.userId);
 
 							});
 
