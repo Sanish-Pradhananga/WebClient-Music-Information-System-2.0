@@ -2,4 +2,4 @@
 Web Client for MIS
 
 # Getting started
-Runt the login.html file to get started
+Run the login.html file to get started
