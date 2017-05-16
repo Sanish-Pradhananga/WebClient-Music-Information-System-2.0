@@ -8,7 +8,5 @@ Events are handled using mostly javascript and a few jquery functions.
 
 Entities are transferred between client and server in JSON format and content is presented dynamically through controller helper functions.
 
-The mp3 is streamed using expressMp3Server built using node's express module and using a single get method to stream the mp3 through the requested URL. The get method applies the proper header to the response and reads the mp3 file into a read stream and pipes it to the request.
-
 # Getting started
 Run the login.html file to get started
