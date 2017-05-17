@@ -10,4 +10,4 @@ Entities are transferred between client and server in JSON and content is presen
 Events are handled using javascript and jquery event handlers.
 
 # Getting started
-Run the login.html file to get started
+You can open the login.html file to get started
